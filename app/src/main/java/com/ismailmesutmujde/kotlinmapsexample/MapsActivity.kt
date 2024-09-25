@@ -7,6 +7,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.ismailmesutmujde.kotlinmapsexample.databinding.ActivityMapsBinding
@@ -26,6 +28,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        binding.buttonGoToLocation.setOnClickListener {
+            // 41.0361566 , 28.9854576, 17z
+            val location = LatLng(41.0361566,28.9854576)
+            mMap.addMarker(MarkerOptions().position(location).title("Taksim")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.location_image)))
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17f))
+            mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
+        }
     }
 
     /**
